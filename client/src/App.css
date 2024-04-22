@@ -1,0 +1,18 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Imposta l'altezza della pagina su 100% della viewport */
+  overflow-y: auto; /* Imposta lo scroll verticale se il contenuto supera l'altezza della viewport */
+}
+
+/* Imposta l'altezza fissa per l'Header */
+.header-container {
+  height: 60px; /* Modifica l'altezza a seconda delle tue esigenze */
+}
+
+/* Imposta l'altezza fissa per il Login */
+.login-container {
+  height: calc(
+    100vh - 60px
+  ); /* Altezza rimanente della viewport dopo l'Header */
+}
