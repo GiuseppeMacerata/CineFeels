@@ -1,19 +1,17 @@
 import { Link } from "react-router-dom";
 
-function UpdateOptions() {
+export default function Profile() {
   return (
-    <div className="update-options-container">
-      <h2 className="update-options-title">Cosa vuoi aggiornare?</h2>
-      <div className="update-options-buttons">
-        <Link to="/change-username" className="update-options-button">
+    <div className="profile-container">
+      <h2 className="profile-title">Cosa vuoi aggiornare?</h2>
+      <div className="profile-buttons">
+        <Link to="/change-username" className="profile-button">
           Nome utente
         </Link>
-        <Link to="/change-password" className="update-options-button">
+        <Link to="/change-password" className="profile-button">
           Password
         </Link>
       </div>
     </div>
   );
 }
-
-export default UpdateOptions;

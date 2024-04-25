@@ -1,29 +1,20 @@
-/* Definizione del font personalizzato */
 @font-face {
   font-family: "CustomFont";
-  src: url("/font.otf") format("opentype"); /* Assicurati di specificare il percorso corretto del tuo file del font */
+  src: url("/font.otf") format("opentype");
 }
 
-/* Reset CSS */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "CustomFont", sans-serif; /* Applica il font personalizzato come fallback */
-}
-
-/* Global Styles */
-body {
-  background-color: #111; /* Colore di sfondo generale */
-  color: #fff; /* Colore del testo generale */
+  font-family: "CustomFont", sans-serif;
 }
 
 /* Header */
-/* Header.css */
 
 .header-container {
-  background-color: #000; /* Colore di sfondo dell'header */
-  color: #fff; /* Colore del testo dell'header */
+  background-color: black;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,6 +25,21 @@ body {
   color: red;
   font-size: 1.3rem;
   text-decoration: none;
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+.logo:hover {
+  color: red;
+  text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
 }
 
 .header-content {
@@ -46,41 +52,41 @@ body {
 }
 
 .header-button {
-  margin-right: 20px; /* Aggiunge spazio tra i pulsanti */
-  font-size: 16px; /* Dimensione del testo */
-  padding: 10px 20px; /* Spazio interno del pulsante */
-  border: none; /* Rimuove il bordo */
-  background-color: red; /* Sfondo trasparente */
-  color: black; /* Colore del testo */
-  text-decoration: none; /* Rimuove la sottolineatura del testo */
+  margin-right: 20px;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  background-color: red;
+  color: black;
+  text-decoration: none;
   border-radius: 5px;
 }
 
 .header-button:hover {
-  background-color: #c00; /* Colore di sfondo del pulsante al passaggio del mouse */
+  background-color: #c00;
 }
 
-/* Aggiunta per lo stile dell'username */
 .username-link {
-  color: #fff; /* Colore del testo dell'username */
-  text-decoration: none; /* Rimuove la sottolineatura */
-  margin-right: 20px; /* Aggiunge spazio a destra */
-  font-weight: bold; /* Rende il testo in grassetto */
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: bold;
 }
 
 .username-link:hover {
-  text-decoration: underline; /* Sottolinea l'username al passaggio del mouse */
+  text-decoration: underline;
 }
 
 /* Login */
+
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #111;
-  color: #f00;
+  background-color: black;
+  color: red;
 }
 
 .login-title {
@@ -92,16 +98,16 @@ body {
   height: 40px;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #f00;
-  background-color: #222;
-  color: #fff;
+  border: 1px solid red;
+  background-color: rgb(33, 32, 32);
+  color: white;
 }
 
 .login-button {
   width: 150px;
   height: 40px;
-  background-color: #f00;
-  color: #000;
+  background-color: red;
+  color: black;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -116,12 +122,13 @@ body {
   padding-bottom: 25px;
 }
 
-/* Home Page */
+/* Homepage */
+
 .home-container {
-  background-image: url("./background.jpg"); /* Immagine di sfondo */
+  background-image: url("./background.jpg");
   background-size: cover;
   background-position: center;
-  color: #fff;
+  color: white;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -134,9 +141,9 @@ body {
   margin-bottom: 20px;
   font-size: 2.5rem;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ombra per il testo */
-  opacity: 0; /* Opacità iniziale */
-  animation: fadeIn 1s forwards; /* Aggiungi un'animazione di dissolvenza */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: fadeIn 1s forwards;
 }
 
 @keyframes fadeIn {
@@ -148,12 +155,12 @@ body {
   }
 }
 .mood-buttons {
-  margin-top: 20px; /* Aumenta lo spazio sopra i pulsanti */
-  margin-bottom: 20px; /* Aumenta lo spazio sotto i pulsanti */
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
-  justify-content: center; /* Centra i pulsanti orizzontalmente */
-  opacity: 0; /* Opacità iniziale */
-  animation: fadeIn 10s forwards; /* Aggiungi un'animazione di dissolvenza */
+  justify-content: center;
+  opacity: 0;
+  animation: fadeIn 10s forwards;
 }
 @keyframes fadeIn {
   from {
@@ -165,27 +172,25 @@ body {
 }
 
 .mood-button {
-  font-size: 1.3rem; /* Dimensione del testo */
+  font-size: 1.3rem;
   margin: 10px;
-  padding: 8px 16px; /* Spazio interno del pulsante ridotto */
-  color: black; /* Testo nero */
-  background-color: red; /* Sfondo rosso */
-  border: none; /* Rimuovi il bordo */
-  border-radius: 5px; /* Bordi arrotondati */
+  padding: 8px 16px;
+  color: black;
+  background-color: red;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease,
-    box-shadow 0.3s ease; /* Transizioni fluide */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Ombra leggera */
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .mood-button:hover {
-  background-color: #c00; /* Cambio colore al passaggio del mouse */
-  transform: scale(1.05); /* Leggero ingrandimento al passaggio del mouse */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Ombra più pronunciata al passaggio del mouse */
+  background-color: #c00;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* Film List */
-/* Film List */
 .film-list {
   display: flex;
   flex-wrap: wrap;
@@ -196,41 +201,34 @@ body {
 }
 
 .film {
-  position: relative; /* Per posizionare correttamente l'overlay */
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 250px;
   height: 500px;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.7
-  ); /* Colore di sfondo leggermente trasparente */
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   padding: 20px;
   text-align: center;
-  overflow: hidden; /* Nasconde eventuali overflow */
+  overflow: hidden;
 }
 
 .film:hover {
-  transform: translateY(
-    -5px
-  ); /* Effetto di sollevamento al passaggio del mouse */
+  transform: translateY(-5px);
 }
 
 .film img {
-  display: block; /* Imposta l'immagine come blocco */
+  display: block;
   max-width: 100%;
   height: 300px;
   border-radius: 10px;
   margin-bottom: 15px;
-  transition: transform 0.3s ease; /* Aggiungi una transizione */
+  transition: transform 0.3s ease;
 }
 
 .film:hover img {
-  transform: scale(1.1); /* Effetto di ingrandimento al passaggio del mouse */
+  transform: scale(1.1);
 }
 
 .film-overlay {
@@ -239,18 +237,13 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.7
-  ); /* Sfondo leggermente trasparente */
-  opacity: 0; /* Inizialmente invisibile */
-  transition: opacity 0.3s ease; /* Aggiungi una transizione */
+  background-color: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .film:hover .film-overlay {
-  opacity: 1; /* Rendi visibile al passaggio del mouse */
+  opacity: 1;
 }
 
 .film-details {
@@ -260,15 +253,15 @@ body {
   transform: translate(-50%, -50%);
   color: #000;
   text-align: center;
-  opacity: 0; /* Inizialmente invisibile */
-  transition: opacity 0.3s ease; /* Aggiungi una transizione */
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .film:hover .film-details {
-  opacity: 1; /* Rendi visibile al passaggio del mouse */
+  opacity: 1;
 }
 
-/* Register */
+/* Registration */
 
 .register-container {
   display: flex;
@@ -276,8 +269,8 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #111;
-  color: #f00;
+  background-color: black;
+  color: red;
 }
 
 .register-title {
@@ -290,15 +283,15 @@ body {
   height: 40px;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #f00;
-  background-color: #222;
-  color: #fff;
+  border: 1px solid red;
+  background-color: rgb(33, 32, 32);
+  color: white;
 }
 
 .register-button {
   width: 150px;
   height: 40px;
-  background-color: #f00;
+  background-color: red;
   color: black;
   border: none;
   cursor: pointer;
@@ -314,15 +307,16 @@ body {
   padding-bottom: 25px;
 }
 
-/* UpdateUser */
+/* UpdateUsername */
+
 .update-user-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #111;
-  color: #f00;
+  background-color: black;
+  color: red;
 }
 
 .update-user-title {
@@ -335,15 +329,15 @@ body {
   height: 40px;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #f00;
-  background-color: #222;
-  color: #fff;
+  border: 1px solid red;
+  background-color: rgb(33, 32, 32);
+  color: white;
 }
 
 .update-user-button {
   width: 150px;
   height: 40px;
-  background-color: #f00;
+  background-color: red;
   color: black;
   border: none;
   cursor: pointer;
@@ -359,15 +353,16 @@ body {
   padding-bottom: 25px;
 }
 
-/* Updatepassword */
+/* UpdatePassword */
+
 .update-password-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #111;
-  color: #f00;
+  background-color: black;
+  color: red;
 }
 
 .update-password-title {
@@ -380,15 +375,15 @@ body {
   height: 40px;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #f00;
-  background-color: #222;
-  color: #fff;
+  border: 1px solid red;
+  background-color: rgb(33, 32, 32);
+  color: white;
 }
 
 .update-password-button {
   width: 150px;
   height: 40px;
-  background-color: #f00;
+  background-color: red;
   color: black;
   border: none;
   cursor: pointer;
@@ -404,93 +399,65 @@ body {
   padding-bottom: 25px;
 }
 
-/* UpdateOptions.css */
+/* Profile */
 
-.update-options-container {
+.profile-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #111;
-  color: #f00;
+  background-color: black;
+  color: red;
 }
 
-.update-options-title {
+.profile-title {
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
-.update-options-buttons {
+.profile-buttons {
   display: flex;
 }
 
-.update-options-button {
+.profile-button {
   width: 200px;
   height: 40px;
   margin: 10px;
   margin-bottom: 10px;
-  background-color: #f00;
+  background-color: red;
   color: black;
   border: none;
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
-  line-height: 40px; /* Centra verticalmente il testo */
+  line-height: 40px;
   text-decoration: none;
 }
 
-.update-options-button:hover {
+.profile-button:hover {
   background-color: #c00;
 }
 
-/* Transizioni più fluide */
 .header-button,
 .login-button,
 .register-button,
 .update-user-button,
 .update-password-button,
-.update-options-button,
+.profile-button,
 .mood-button {
   transition: background-color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
-/* Effetti di ombreggiatura */
-.film {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-/* Animazioni al passaggio del mouse */
 .header-button:hover,
 .login-button:hover,
 .register-button:hover,
 .update-user-button:hover,
 .update-password-button:hover,
-.update-options-button:hover,
+.profile-button:hover,
 .mood-button:hover {
   background-color: #c00;
-  transform: scale(1.1); /* Ingrandisci leggermente il pulsante */
+  transform: scale(1.1);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-}
-
-.logo {
-  color: red;
-  font-size: 1.3rem;
-  text-decoration: none;
-  animation: bounce 1s infinite alternate; /* Aggiungi un'animazione al logo */
-}
-
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-3px); /* Fai rimbalzare il logo verso l'alto */
-  }
-}
-
-.logo:hover {
-  color: #ff0000; /* Cambia il colore al passaggio del mouse */
-  text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5); /* Aggiungi un'ombra al testo al passaggio del mouse */
 }

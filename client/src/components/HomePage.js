@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-function HomePage() {
+export default function HomePage() {
   const [film, setFilm] = useState(null);
   const [filmsShown, setFilmsShown] = useState({});
 
@@ -8,34 +8,32 @@ function HomePage() {
     try {
       const res = await fetch(`http://localhost:3001/films?mood=${mood}`);
       if (!res.status === 200) {
-        throw new Error("Errore durante il recupero dei film");
       }
       const films = await res.json();
       return films;
-    } catch (error) {
-      console.error(error);
+    } catch {
       return null;
     }
   }
 
   const handleMoodButtonClick = async (mood) => {
-    if (filmsShown[mood]) {
-      const randomFilm = await getFilmsByMood(mood);
-      if (!filmsShown[mood].includes(randomFilm._id)) {
-        const updatedFilmsShown = {
-          ...filmsShown,
-          [mood]: [...filmsShown[mood], randomFilm._id],
-        };
-        setFilmsShown(updatedFilmsShown);
-        setFilm(randomFilm);
-      } else {
-        handleMoodButtonClick(mood);
-      }
-    } else {
-      const randomFilm = await getFilmsByMood(mood);
-      setFilm(randomFilm);
-      setFilmsShown({ ...filmsShown, [mood]: [randomFilm._id] });
+    const randomFilm = await getFilmsByMood(mood);
+
+    if (film && film._id === randomFilm._id) {
+      return handleMoodButtonClick(mood);
     }
+
+    setFilm(randomFilm);
+
+    const updatedFilmsShown = { ...filmsShown };
+
+    if (!updatedFilmsShown[mood]) {
+      updatedFilmsShown[mood] = [randomFilm._id];
+    } else if (!updatedFilmsShown[mood].includes(randomFilm._id)) {
+      updatedFilmsShown[mood].push(randomFilm._id);
+    }
+
+    setFilmsShown(updatedFilmsShown);
   };
   return (
     <div className="home-container">
@@ -78,5 +76,3 @@ function HomePage() {
     </div>
   );
 }
-
-export default HomePage;

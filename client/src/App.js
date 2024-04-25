@@ -1,6 +1,6 @@
+import "./App.css";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
@@ -9,7 +9,7 @@ import Profile from "./components/Profile";
 import UpdateUsername from "./components/UpdateUsername";
 import UpdatePassword from "./components/UpdatePassword";
 
-function App() {
+export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
@@ -31,5 +31,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

@@ -13,29 +13,24 @@ export async function login(username, password) {
     .db("CineFeels")
     .collection("users")
     .findOne({ username, password });
-  console.log("Risultato del login:", res);
   return [res != null, res];
 }
 
 export async function register(username, password) {
-  // Verifica se esiste già un utente con lo stesso username nel database
   const existingUser = await client
     .db("CineFeels")
     .collection("users")
     .findOne({ username });
 
   if (existingUser) {
-    // Se esiste già un utente con lo stesso username, ritorna errore:
     return [false, { message: "Username già in uso" }];
   }
 
-  // Se non esiste un utente con lo stesso username, continua la registrazione
   const res = await client
     .db("CineFeels")
     .collection("users")
     .insertOne({ username, password });
 
-  console.log("Risultato della registrazione:", res);
   return [true, res];
 }
 
@@ -50,37 +45,25 @@ export async function getFilmsByMood(mood) {
 }
 
 export async function updateUsername(currentUsername, newUsername) {
-  try {
-    const db = client.db("CineFeels");
-    const usersCollection = db.collection("users");
+  const db = client.db("CineFeels");
+  const usersCollection = db.collection("users");
 
-    // Effettuiamo l'aggiornamento del documento corrispondente all'username attuale
-    const updatedUser = await usersCollection.updateOne(
-      { username: currentUsername }, // Selezioniamo il documento con l'username corrente
-      { $set: { username: newUsername } } // Aggiorniamo username con il nuovo valore
-    );
+  await usersCollection.updateOne(
+    { username: currentUsername },
+    { $set: { username: newUsername } }
+  );
 
-    return { username: newUsername };
-  } catch (error) {
-    console.error("Errore durante l'aggiornamento del nome utente:", error);
-    throw error;
-  }
+  return { username: newUsername };
 }
 
 export async function updatePassword(username, newPassword) {
-  try {
-    const db = client.db("CineFeels");
-    const usersCollection = db.collection("users");
+  const db = client.db("CineFeels");
+  const usersCollection = db.collection("users");
 
-    const updatedUser = await usersCollection.updateOne(
-      { username: username },
-      { $set: { password: newPassword } }
-    );
+  const updatedUser = await usersCollection.updateOne(
+    { username: username },
+    { $set: { password: newPassword } }
+  );
 
-    // Restituisce il risultato dell'aggiornamento
-    return updatedUser;
-  } catch (error) {
-    console.error("Errore durante l'aggiornamento della password:", error);
-    throw error;
-  }
+  return updatedUser;
 }

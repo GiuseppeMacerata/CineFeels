@@ -18,10 +18,10 @@ app.use(bodyParser.json());
 import cookieParser from "cookie-parser";
 app.use(cookieParser());
 
-import cors from "cors"; // serve per dire al browser che il dominio da cui si sta facendo la chiamata è accettato dal server
+import cors from "cors";
 const corsOptions = {
   origin: "http://localhost:3000",
-  credentials: true, // guarda che arriverrano dei cookie come parte del processo di autenticazione
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -30,21 +30,19 @@ app.use(
   session({
     saveUninitialized: false,
     resave: false,
-    secret: "segreto", //stringa per criptare il cookie
+    secret: "segreto",
     cookie: {
       secure: false,
     },
   })
 );
 
-//endpoint per creare una sessione
 app.post("/sessions", async (req, res) => {
   const [exists, _] = await login(req.body.username, req.body.password);
   if (exists) {
-    // se l'utente esiste
-    req.session.logged = true; //allora lo mette in sessione
-    req.session.username = req.body.username; //mette in sessione l'username che prende dal body
-    res.json({ msg: "logged in", sessionID: req.sessionID }); //risponde
+    req.session.logged = true;
+    req.session.username = req.body.username;
+    res.json({ msg: "Loggato", sessionID: req.sessionID });
   } else {
     res.status(401).json({
       msg: "Il nome utente o la password inseriti non sono corretti, per favore riprova.",
@@ -52,13 +50,11 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
-//endpoint per leggere una sessione
 app.get("/sessions", (req, res) => {
   if (req.session.logged) {
-    //chiede se c'è l'utenete loggato in sessione
-    res.status(200).json({ username: req.session.username }); //se c'è risponde con l'username
+    res.status(200).json({ username: req.session.username });
   } else {
-    res.status(401).json({ msg: "User did not log in" }); //se no risponde errore
+    res.status(401).json({ msg: "Utente non loggato" });
   }
 });
 
@@ -71,27 +67,22 @@ app.get("/films", async (req, res) => {
       return;
     }
     res.json(films);
-  } catch (error) {
-    console.error(error);
+  } catch {
     res.status(500).json({ msg: "Errore durante il recupero dei film" });
   }
 });
 
 app.delete("/sessions", async (req, res) => {
-  // Controlla se l'utente è loggato
   if (req.session.logged) {
-    // Elimina i dati della sessione
     req.session.destroy((err) => {
       if (err) {
         console.error(err);
         res.status(500).json({ msg: "Errore durante il logout" });
       } else {
-        // Invia una risposta quando è un successo
         res.json({ msg: "Logout effettuato" });
       }
     });
   } else {
-    // L'utente non è loggato
     res.status(401).json({ msg: "Utente non loggato" });
   }
 });
@@ -100,38 +91,35 @@ app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   const [success, _] = await register(username, password);
   if (success) {
-    res.status(201).json({ msg: "Registration successful" });
+    res.status(201).json({ msg: "Registrazione avvunta con successo" });
   } else {
-    res.status(400).json({ msg: "Registration failed" });
+    res.status(400).json({ msg: "Registrazione fallita" });
   }
 });
 
 app.put("/change-username", async (req, res) => {
-  //  se l'utente è autenticato
   if (!req.session.logged) {
-    return res.status(401).json({ msg: "Utente non autenticato" });
+    return res.status(401).json({ msg: "Utente non loggato" });
   }
 
   const { newUsername } = req.body;
 
-  // Verifichiamo se il nuovo nome utente è stato fornito
   if (!newUsername) {
-    return res.status(400).json({ msg: "Il nuovo nome utente è richiesto" });
+    return res
+      .status(400)
+      .json({ msg: "È necessario specificare un nuovo nome utente" });
   }
 
   try {
-    // Aggiorniamo il nome utente nel database
     const updatedUser = await updateUsername(req.session.username, newUsername);
 
-    // Aggiorniamo anche il nome utente nella sessione
     req.session.username = newUsername;
 
     res.status(200).json({
       msg: "Nome utente aggiornato con successo",
       user: updatedUser,
     });
-  } catch (error) {
-    console.error("Errore durante l'aggiornamento del nome utente:", error);
+  } catch {
     res.status(500).json({
       msg: "Si è verificato un errore durante l'aggiornamento del nome utente",
     });
@@ -139,20 +127,19 @@ app.put("/change-username", async (req, res) => {
 });
 
 app.put("/change-password", async (req, res) => {
-  // Verifichiamo se l'utente è autenticato
   if (!req.session.logged) {
-    return res.status(401).json({ msg: "Utente non autenticato" });
+    return res.status(401).json({ msg: "Utente non loggato" });
   }
 
-  const { currentPassword, newPassword } = req.body; // Estrai entrambe le password dal corpo della richiesta
+  const { currentPassword, newPassword } = req.body;
 
-  // Verifichiamo se il nuovo nome utente è stato fornito
   if (!newPassword) {
-    return res.status(400).json({ msg: "La nuova password è richiesta" });
+    return res
+      .status(400)
+      .json({ msg: "È necessario specificare una nuova password" });
   }
 
   try {
-    // Verifica che la password corrente sia corretta
     const [isValid, _] = await login(req.session.username, currentPassword);
     if (!isValid) {
       return res
@@ -160,7 +147,6 @@ app.put("/change-password", async (req, res) => {
         .json({ msg: "La password corrente non è corretta" });
     }
 
-    // Aggiorniamo la password nel database
     const updatedPassword = await updatePassword(
       req.session.username,
       newPassword
@@ -170,8 +156,7 @@ app.put("/change-password", async (req, res) => {
       msg: "Password aggiornata con successo",
       user: updatedPassword,
     });
-  } catch (error) {
-    console.error("Errore durante l'aggiornamento della password:", error);
+  } catch {
     res.status(500).json({
       msg: "Si è verificato un errore durante l'aggiornamento della password",
     });

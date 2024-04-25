@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function UpdatePassword() {
+export default function UpdatePassword() {
   const navigate = useNavigate();
 
   const [newPassword, setnewPassword] = useState("");
@@ -9,26 +9,19 @@ function UpdatePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
 
   async function updatePassword() {
-    try {
-      const res = await fetch("http://localhost:3001/change-password", {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ currentPassword, newPassword }),
-      });
-      if (res.status !== 200) {
-        const json = await res.json();
-        setErrorMessage(json.msg);
-      } else {
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Errore durante l'aggiornamento della password:", error);
-      setErrorMessage(
-        "Si è verificato un errore durante l'aggiornamento della password"
-      );
+    const res = await fetch("http://localhost:3001/change-password", {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ currentPassword, newPassword }),
+    });
+    if (res.status !== 200) {
+      const json = await res.json();
+      setErrorMessage(json.msg);
+    } else {
+      navigate("/");
     }
   }
 
@@ -56,5 +49,3 @@ function UpdatePassword() {
     </div>
   );
 }
-
-export default UpdatePassword;

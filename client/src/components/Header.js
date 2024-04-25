@@ -1,15 +1,14 @@
-import React from "react";
-import "../index.css"; // Importa il file CSS per lo stile dell'Header
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function Header({ isLoggedIn, setIsLoggedIn }) {
+export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const { pathname } = useLocation();
 
   const [username, setUsername] = useState("");
 
   useEffect(() => {
     checkAuthStatus();
+    // eslint-disable-next-line
   }, [isLoggedIn]);
 
   async function checkAuthStatus() {
@@ -18,10 +17,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
       credentials: "include",
     });
     const json = await res.json();
-    console.log(
-      "Risposta del server al controllo dello stato di autenticazione:",
-      json
-    );
+
     if (res.status === 200) {
       setIsLoggedIn(true);
       setUsername(json.username);
@@ -71,7 +67,6 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
     );
   }
 
-  // Restituisce l'header completo in tutte le altre pagine
   return (
     <div className="header-container">
       <Link to="/" className="logo">
@@ -101,5 +96,3 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
     </div>
   );
 }
-
-export default Header;

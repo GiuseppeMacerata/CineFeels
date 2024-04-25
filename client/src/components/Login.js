@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import "../index.css";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login({ setIsLoggedIn }) {
+export default function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -19,7 +18,6 @@ function Login({ setIsLoggedIn }) {
       body: JSON.stringify({ username, password }),
     });
     const json = await res.json();
-    console.log("Risposta del server al login:", json);
     if (res.status === 401) {
       setErrorMessage(json.msg);
     } else {
@@ -52,5 +50,3 @@ function Login({ setIsLoggedIn }) {
     </div>
   );
 }
-
-export default Login;
